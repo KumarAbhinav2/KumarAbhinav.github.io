@@ -19,6 +19,7 @@ Background
 
 For the folks in relational world thats how to relate the things in elastic search 
 
+![useful image]({{ site.url }}/assets/table.png)
 
 We need to handle a business scenario where the client will be providing details of customers belonging to a particular organisation. Details are nothing but in the form of large csv (comma separated values) files. We need to take these csv files , process them (processing engine is based on apache spark , well thats whole new story :) ) and then make apache spark to put those records into Elasticsearch.
 
