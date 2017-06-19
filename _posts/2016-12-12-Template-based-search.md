@@ -47,7 +47,7 @@ Sample Template:
 In order to use template , since we are coding everything in python, we have created a separate file called my_template.py.
 
 We have stored the above template in a variable (COUNT_TEMPLATE) and the only thing we have to do is to include that variable in the main driver code. That thing can be done very easily in python by “import” 
-
+```
 {
     "query": {
                "bool":{
@@ -65,10 +65,11 @@ We have stored the above template in a variable (COUNT_TEMPLATE) and the only th
                                         {{/var2}}\
                                         ]}}\
                         }
+```
 statement. And in order to explore search_template option by elastic search we have used elastic search client. (https://elasticsearch-py.readthedocs.io/en/master/).
 
 How to pass arrays?
-
+```
 from elasticsearch import Elasticsearch
 from my_template import COUNT_TEMPLATE
 
@@ -84,42 +85,47 @@ result = es.search_template(index=organisationid, doc_type=doc_type, body=json.d
 
 count = result["hits"]["total"]
 return {"count": count}
+```
 In one of our use case we need to pass array of values to a particular field so that any one of the values can be considered as valid for the field. If you are familiar with elastic search that can be done using terms match like this:
-
+```
 {“query”: {“terms”: {“code”: [“123, “234”, “454”]}}}
-
+```
 search template (arrays):
 
 The value for var1 list will be provide from the code. 
 
 Conditions in search template (if-else):
-
+```
 {
                          "query": {
 			{"terms": {"field": [{{#var1}} "{{.}}", {{/var1}}]}}
 			}
 		}
+```
 Since the generation of the search template is going to be dynamic that means if the front end is sending a particular field then only that will be added as part of search query otherwise not. So we need to create a conditional search template like this :
-
+```
 {{#if_var}},\
                                        {"term": {"field": "{{var}}"}}\
                          {{/if_var}}\
+```
 So it all depends on the value of if_var being sent as part of params in query . if the value of if_var == True then the term filter will be added to the query. 
 
 Apart from this there are lots of other scenarios where we want to check for a condition if the condition is true then include a particular parameter otherwise add some thing else. The if-else block in search template:
 
 Consider this complex scenario where we want to apply a range search on a particular field , so we can start with something like this elastic search query:
-
+```
 {“range”: {“salary”: {“gte”: 2000, “lte”: 1000}}}
+```
 Now what additional freedom we want to give to the user is to apply independent searches too , like he can only search for salary greater than 2000 or salary less than 1000 and even both. So to achieve this we have to use if-else block. But another issue with these scenarios is , we need to take care of comma in between “gte” and “lte” fields. We cannot hardcode comma in our search template as in the scenario where search is being made on say only “get: 2000” scenario then we don’t need the comma. like this
-
+```
 {“range”: {“salary”: {“gte”: 2000}}}
-
+```
 or
-
+```
 {“range”: {“salary”: {“lte”: 1000}}}
+```
 To achieve the above problem statement we need to put a check on the first field (if the fields exists) and the following field (if also present) then only we will be placing comma in between. And you can see in order to put “lte” (less than equal to) attribute we first check if “s_gte” variable is true , if it is true then only this will add comma other wise (else ,which is represented by ^ ) different condition will be called and executed accordingly.
-
+```
 {{#if_fterm}},
                                   {"range": {
                                            "salary": {
@@ -137,7 +143,7 @@ To achieve the above problem statement we need to put a check on the first field
                                                 }
                                             }}
                         {{/if_fterm}}
-
+```
 
 CONCLUSION:
 
