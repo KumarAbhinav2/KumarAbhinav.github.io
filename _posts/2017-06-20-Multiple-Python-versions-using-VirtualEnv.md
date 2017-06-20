@@ -2,8 +2,8 @@
 layout: post
 title:  Running multiple Python Versions Using Virtual Envs
 date:  Tue Jun 20 13:30:25 IST 2017
-categories: Elasticsearch
-tags: elasticsearch python
+categories: python
+tags: python virtualenv
 author: Abhinav Kumar
 mathjax: true
 ---
