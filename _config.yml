@@ -9,16 +9,14 @@
 title: Abhinav
 brief-intro: Software Engineer
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://KumarAbhinav.github.io" # the base hostname & protocol for your site
+url: "https://KumarAbhinav2.github.io" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
 
 # other links
-github_username:  KumarAbhinav
+github_username:  KumarAbhinav2
 email: abhinavkumar24x7@gmail.com
 linkedIn_username: abhinavkumardhiman
-
-description_footer: 本站记录我前端之旅的沿途风景！
 
 # comments
 # two ways to comment, only choose one, and use your own short name
